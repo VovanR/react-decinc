@@ -1,0 +1,48 @@
+.dec-inc
+	control = 26px
+	display: inline-block
+	position: relative
+	padding: 0 control
+
+	&__dec
+	&__inc
+		display: block
+		position: absolute
+		top: 0
+		cursor: pointer
+		width: control
+		height: control
+		text-align: center
+
+		&::after
+			color: gray
+			display: block
+			width: 16px
+			height: 16px
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%, -50%)
+			border-radius: 50%
+
+		&:hover
+			&::after
+				color: lime
+
+	&__dec
+		left: 0
+
+		&::after
+			content: '￬'
+
+	&__inc
+		right: 0
+
+		&::after
+			content: '￪'
+
+	&__value
+		width: 35px
+		font-size: 13px
+		color: #666
+		text-align: right
