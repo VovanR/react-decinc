@@ -15,3 +15,39 @@ test(t => {
 	t.is(result.props.className, 'dec-inc');
 	t.is(result.type, 'div');
 });
+
+test('render childrens', t => {
+	const props = {
+		value: 5,
+		min: 2,
+		max: 9
+	};
+	const result = createComponent(C, props);
+
+	t.is(result.props.children[0].type, 'span');
+	t.is(result.props.children[0].props.className, 'dec-inc__dec');
+	t.is(result.props.children[1].type, 'input');
+	t.is(result.props.children[1].props.className, 'dec-inc__value');
+	t.is(result.props.children[2].type, 'span');
+	t.is(result.props.children[2].props.className, 'dec-inc__inc');
+});
+
+test('disable dec if value is min', t => {
+	const props = {
+		value: 5,
+		min: 5
+	};
+	const result = createComponent(C, props);
+
+	t.is(result.props.children[0], false);
+});
+
+test('disable inc if value is max', t => {
+	const props = {
+		value: 5,
+		max: 5
+	};
+	const result = createComponent(C, props);
+
+	t.is(result.props.children[2], false);
+});
