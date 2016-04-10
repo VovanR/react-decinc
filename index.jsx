@@ -64,6 +64,10 @@ const DecInc = React.createClass({
 			this.dec();
 		} else if (e.key === 'ArrowUp') {
 			this.inc();
+		} else if (e.key === 'End' && this.props.min !== undefined) {
+			this.updateValue(this.props.min);
+		} else if (e.key === 'Home' && this.props.max !== undefined) {
+			this.updateValue(this.props.max);
 		}
 	},
 
