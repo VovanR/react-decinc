@@ -13,23 +13,11 @@ const DecInc = React.createClass({
 	},
 
 	handleDec() {
-		let value = this.props.value - 1;
-
-		if (value < this.props.min) {
-			value = this.props.min;
-		}
-
-		this.updateValue(value);
+		this.dec();
 	},
 
 	handleInc() {
-		let value = this.props.value + 1;
-
-		if (value > this.props.max) {
-			value = this.props.max;
-		}
-
-		this.updateValue(value);
+		this.inc();
 	},
 
 	updateValue(value) {
@@ -66,6 +54,34 @@ const DecInc = React.createClass({
 		return this.props.value < this.props.max;
 	},
 
+	handleKeyUp(e) {
+		if (e.key === 'ArrowDown') {
+			this.dec();
+		} else if (e.key === 'ArrowUp') {
+			this.inc();
+		}
+	},
+
+	dec() {
+		let value = this.props.value - 1;
+
+		if (value < this.props.min) {
+			value = this.props.min;
+		}
+
+		this.updateValue(value);
+	},
+
+	inc() {
+		let value = this.props.value + 1;
+
+		if (value > this.props.max) {
+			value = this.props.max;
+		}
+
+		this.updateValue(value);
+	},
+
 	render() {
 		return (
 			<div className="dec-inc">
@@ -80,6 +96,7 @@ const DecInc = React.createClass({
 					type="text"
 					value={this.props.value}
 					onChange={this.handleChange}
+					onKeyUp={this.handleKeyUp}
 					/>
 				{this.checkIncAvailable() ? (
 					<span
