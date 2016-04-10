@@ -1,3 +1,13 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/vovanr/react-decinc/compare/v0.5.0...v0.6.0) (2016-04-10)
+
+
+### Features
+
+* **lib:** Add keyboard Home and End handlers ([8749c26](https://github.com/vovanr/react-decinc/commit/8749c26))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/vovanr/react-decinc/compare/v0.4.0...v0.5.0) (2016-04-10)
 
