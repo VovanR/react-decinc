@@ -9,6 +9,10 @@ const DecInc = React.createClass({
 		className: React.PropTypes.string
 	},
 
+	getInitialState() {
+		return {isFocused: false};
+	},
+
 	handleChange(e) {
 		this.updateValue(e.target.value);
 	},
@@ -63,6 +67,28 @@ const DecInc = React.createClass({
 		}
 	},
 
+	handleWheel(e) {
+		if (!this.state.isFocused) {
+			return;
+		}
+
+		e.preventDefault();
+
+		if (e.deltaY > 0) {
+			this.dec();
+		} else {
+			this.inc();
+		}
+	},
+
+	handleFocus() {
+		this.setState({isFocused: true});
+	},
+
+	handleBlur() {
+		this.setState({isFocused: false});
+	},
+
 	dec() {
 		let value = this.props.value - 1;
 
@@ -104,6 +130,9 @@ const DecInc = React.createClass({
 					value={this.props.value}
 					onChange={this.handleChange}
 					onKeyUp={this.handleKeyUp}
+					onWheel={this.handleWheel}
+					onFocus={this.handleFocus}
+					onBlur={this.handleBlur}
 					/>
 				{this.checkIncAvailable() ? (
 					<span
