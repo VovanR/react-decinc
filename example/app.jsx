@@ -29,7 +29,7 @@ class App extends React.Component {
 				<DecInc
 					className="dec-inc_theme_example"
 					value={this.state.value}
-					max={10}
+					max={33}
 					min={0}
 					onChange={this.handleChange}
 					/>

@@ -68,6 +68,10 @@ const DecInc = React.createClass({
 			this.updateValue(this.props.min);
 		} else if (e.key === 'Home' && this.props.max !== undefined) {
 			this.updateValue(this.props.max);
+		} else if (e.key === 'PageDown') {
+			this.updateValue(this.props.value - 10);
+		} else if (e.key === 'PageUp') {
+			this.updateValue(this.props.value + 10);
 		}
 	},
 
