@@ -118,12 +118,11 @@ const DecInc = React.createClass({
 
 		return (
 			<div className={className}>
-				{this.checkDecAvailable() ? (
-					<span
-						className="dec-inc__dec"
-						onClick={this.handleDec}
-						/>
-				) : false}
+				<DecIncControl
+					type="dec"
+					onClick={this.handleDec}
+					isDisabled={!this.checkDecAvailable()}
+					/>
 				<input
 					className="dec-inc__value"
 					type="text"
@@ -134,13 +133,47 @@ const DecInc = React.createClass({
 					onFocus={this.handleFocus}
 					onBlur={this.handleBlur}
 					/>
-				{this.checkIncAvailable() ? (
-					<span
-						className="dec-inc__inc"
-						onClick={this.handleInc}
-						/>
-				) : false}
+				<DecIncControl
+					type="inc"
+					onClick={this.handleInc}
+					isDisabled={!this.checkIncAvailable()}
+					/>
 			</div>
+		);
+	}
+});
+
+const DecIncControl = React.createClass({
+	propTypes: {
+		type: React.PropTypes.string.isRequired,
+		onClick: React.PropTypes.func.isRequired,
+		isDisabled: React.PropTypes.bool
+	},
+
+	propsDefault: {
+		isDisabled: false
+	},
+
+	handleClick() {
+		if (this.props.isDisabled) {
+			return;
+		}
+
+		this.props.onClick();
+	},
+
+	render() {
+		const controlClassName = 'dec-inc__control';
+		let className = `${controlClassName} ${controlClassName}_type_${this.props.type}`;
+		if (this.props.isDisabled) {
+			className += ` ${controlClassName}_disabled`;
+		}
+
+		return (
+			<span
+				className={className}
+				onClick={this.handleClick}
+				/>
 		);
 	}
 });

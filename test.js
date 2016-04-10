@@ -1,7 +1,18 @@
 import test from 'ava';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
+import jsdom from 'jsdom';
 import C from './';
+
+test.beforeEach(() => {
+	global.document = jsdom.jsdom();
+	global.window = global.document.defaultView;
+});
+
+test.afterEach(() => {
+	delete global.document;
+	delete global.window;
+});
 
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();
@@ -22,14 +33,19 @@ test('render childrens', t => {
 		min: 2,
 		max: 9
 	};
-	const result = createComponent(C, props);
+	const result = ReactTestUtils.renderIntoDocument(React.createElement(C, props));
 
-	t.is(result.props.children[0].type, 'span');
-	t.is(result.props.children[0].props.className, 'dec-inc__dec');
-	t.is(result.props.children[1].type, 'input');
-	t.is(result.props.children[1].props.className, 'dec-inc__value');
-	t.is(result.props.children[2].type, 'span');
-	t.is(result.props.children[2].props.className, 'dec-inc__inc');
+	const dec = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc__control_type_dec');
+	t.is(dec.nodeName, 'SPAN');
+	t.is(dec.className, 'dec-inc__control dec-inc__control_type_dec');
+
+	const value = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc__value');
+	t.is(value.nodeName, 'INPUT');
+	t.is(value.className, 'dec-inc__value');
+
+	const inc = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc__control_type_inc');
+	t.is(inc.nodeName, 'SPAN');
+	t.is(inc.className, 'dec-inc__control dec-inc__control_type_inc');
 });
 
 test('disable dec if value is min', t => {
@@ -37,9 +53,10 @@ test('disable dec if value is min', t => {
 		value: 5,
 		min: 5
 	};
-	const result = createComponent(C, props);
+	const result = ReactTestUtils.renderIntoDocument(React.createElement(C, props));
 
-	t.is(result.props.children[0], false);
+	const dec = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc__control_type_dec');
+	t.regex(dec.className, /dec-inc__control_disabled/);
 });
 
 test('disable inc if value is max', t => {
@@ -47,9 +64,10 @@ test('disable inc if value is max', t => {
 		value: 5,
 		max: 5
 	};
-	const result = createComponent(C, props);
+	const result = ReactTestUtils.renderIntoDocument(React.createElement(C, props));
 
-	t.is(result.props.children[2], false);
+	const inc = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc__control_type_inc');
+	t.regex(inc.className, /dec-inc__control_disabled/);
 });
 
 test('allow to add custom class name', t => {
