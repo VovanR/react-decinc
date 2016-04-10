@@ -32,11 +32,11 @@ const DecInc = React.createClass({
 			return;
 		}
 
-		if (Number.isInteger(this.props.min) && value < this.props.min) {
+		if (this.props.min !== undefined && value < this.props.min) {
 			value = this.props.min;
 		}
 
-		if (Number.isInteger(this.props.max) && value > this.props.max) {
+		if (this.props.max !== undefined && value > this.props.max) {
 			value = this.props.max;
 		}
 
@@ -154,8 +154,10 @@ const DecIncControl = React.createClass({
 		isDisabled: React.PropTypes.bool
 	},
 
-	propsDefault: {
-		isDisabled: false
+	getDefaultProps() {
+		return {
+			isDisabled: false
+		};
 	},
 
 	handleClick() {
