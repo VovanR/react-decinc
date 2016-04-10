@@ -19,9 +19,15 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div
+				style={{
+					fontSize: '500%',
+					fontFamily: 'monospace'
+				}}
+				>
 				<small>{'Items: '}</small>
 				<DecInc
+					className="dec-inc_theme_example"
 					value={this.state.value}
 					max={10}
 					min={0}

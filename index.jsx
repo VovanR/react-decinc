@@ -5,7 +5,8 @@ const DecInc = React.createClass({
 		value: React.PropTypes.number,
 		min: React.PropTypes.number,
 		max: React.PropTypes.number,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		className: React.PropTypes.string
 	},
 
 	handleChange(e) {
@@ -83,8 +84,14 @@ const DecInc = React.createClass({
 	},
 
 	render() {
+		let className = 'dec-inc';
+		if (this.props.className) {
+			className += ' ';
+			className += this.props.className;
+		}
+
 		return (
-			<div className="dec-inc">
+			<div className={className}>
 				{this.checkDecAvailable() ? (
 					<span
 						className="dec-inc__dec"

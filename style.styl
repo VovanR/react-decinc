@@ -1,8 +1,8 @@
 .dec-inc
-	control = 26px
+	controlWidth = 1em
 	display: inline-block
 	position: relative
-	padding: 0 control
+	padding: 0 controlWidth
 	user-select: none
 
 	&__dec
@@ -10,25 +10,17 @@
 		display: block
 		position: absolute
 		top: 0
-		width: control
-		height: control
+		width: controlWidth
+		height: 100%
 		text-align: center
 		cursor: pointer
 
 		&::after
-			color: gray
 			display: block
-			width: 16px
-			height: 16px
 			position: absolute
 			top: 50%
 			left: 50%
 			transform: translate(-50%, -50%)
-			border-radius: 50%
-
-		&:hover
-			&::after
-				color: lime
 
 	&__dec
 		left: 0
@@ -43,7 +35,20 @@
 			content: '￪'
 
 	&__value
-		width: 35px
-		font-size: 13px
-		color: #666
+		width: 1.2em
+		font-size: inherit
 		text-align: right
+
+	&_theme_example
+		& ^[0]__value
+			font-family: monospace
+
+		& ^[0]__dec
+		& ^[0]__inc
+			&::after
+				opacity: 0.5
+
+			&:hover
+				&::after
+					opacity: 1
+

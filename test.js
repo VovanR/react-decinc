@@ -51,3 +51,12 @@ test('disable inc if value is max', t => {
 
 	t.is(result.props.children[2], false);
 });
+
+test('allow to add custom class name', t => {
+	const props = {
+		className: 'foo bar'
+	};
+	const result = createComponent(C, props);
+
+	t.is(result.props.className, 'dec-inc foo bar');
+});
