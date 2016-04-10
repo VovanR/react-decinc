@@ -1,3 +1,13 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/vovanr/react-decinc/compare/v0.6.1...v0.7.0) (2016-04-10)
+
+
+### Features
+
+* **lib:** Add keyboard PageUp and PageDown keys handlers ([23a45f7](https://github.com/vovanr/react-decinc/commit/23a45f7))
+
+
+
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/vovanr/react-decinc/compare/v0.6.0...v0.6.1) (2016-04-10)
 
