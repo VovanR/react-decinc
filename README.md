@@ -81,6 +81,22 @@ class App extends React.Component {
 ReactDOM.render(<App/>, document.getElementById('app'));
 ```
 
+## Api
+
+```js
+DecInc.propTypes = {
+	value: React.PropTypes.number,
+	min: React.PropTypes.number,
+	max: React.PropTypes.number,
+	step: React.PropTypes.number,
+	onChange: React.PropTypes.func,
+	className: React.PropTypes.string
+};
+DecInc.defaultProps = {
+	step: 1
+};
+```
+
 ## License
 
 MIT © [Vladimir Rodkin](https://github.com/VovanR)
