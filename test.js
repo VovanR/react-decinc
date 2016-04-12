@@ -291,6 +291,85 @@ test('value Wheel up', t => {
 	t.is(count, 6, 'without focus');
 });
 
+test('dec with step', t => {
+	let count = 0.3;
+	const props = {
+		value: count,
+		step: 0.1,
+		onChange(value) {
+			count = value;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const dec = getDec(result);
+
+	ReactTestUtils.Simulate.click(dec);
+	t.is(count, 0.2);
+});
+
+test('inc with step', t => {
+	let count = 0.2;
+	const props = {
+		value: count,
+		step: 0.1,
+		onChange(value) {
+			count = value;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const inc = getInc(result);
+
+	ReactTestUtils.Simulate.click(inc);
+	t.is(count, 0.3);
+});
+
+test('value Change with step precision', t => {
+	let count = 1;
+	const props = {
+		value: count,
+		step: 0.01,
+		onChange(value) {
+			count = value;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const value = getValue(result);
+
+	t.is(value.value, '1.00');
+});
+
+test('value PageDown with step', t => {
+	let count = 0.31;
+	const props = {
+		value: count,
+		step: 0.01,
+		onChange(value) {
+			count = value;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const value = getValue(result);
+
+	ReactTestUtils.Simulate.keyUp(value, {key: 'PageDown'});
+	t.is(count, 0.21);
+});
+
+test('value PageUp with step', t => {
+	let count = 0.31;
+	const props = {
+		value: count,
+		step: 0.01,
+		onChange(value) {
+			count = value;
+		}
+	};
+	const result = renderIntoDocument(props);
+	const value = getValue(result);
+
+	ReactTestUtils.Simulate.keyUp(value, {key: 'PageUp'});
+	t.is(count, 0.41);
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

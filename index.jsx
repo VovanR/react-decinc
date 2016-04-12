@@ -5,8 +5,15 @@ const DecInc = React.createClass({
 		value: React.PropTypes.number,
 		min: React.PropTypes.number,
 		max: React.PropTypes.number,
+		step: React.PropTypes.number,
 		onChange: React.PropTypes.func,
 		className: React.PropTypes.string
+	},
+
+	getDefaultProps() {
+		return {
+			step: 1
+		};
 	},
 
 	getInitialState() {
@@ -26,7 +33,7 @@ const DecInc = React.createClass({
 	},
 
 	updateValue(value) {
-		value = parseInt(value, 10);
+		value = parseFloat(value);
 
 		if (isNaN(value)) {
 			return;
@@ -40,7 +47,28 @@ const DecInc = React.createClass({
 			value = this.props.max;
 		}
 
+		value = parseFloat(this.toFixed(value));
+
 		this.props.onChange(value);
+	},
+
+	toFixed(value) {
+		const old = this.getPrecision(this.props.value);
+		const step = this.getPrecision(this.props.step);
+
+		if (!old && !step) {
+			return value;
+		}
+
+		return value.toFixed(Math.max(old, step));
+	},
+
+	getPrecision(value) {
+		const v = String(value);
+		if (!/\./.test(v)) {
+			return 0;
+		}
+		return v.split('.')[1].length;
 	},
 
 	checkDecAvailable() {
@@ -69,9 +97,9 @@ const DecInc = React.createClass({
 		} else if (e.key === 'Home' && this.props.max !== undefined) {
 			this.updateValue(this.props.max);
 		} else if (e.key === 'PageDown') {
-			this.updateValue(this.props.value - 10);
+			this.updateValue(this.props.value - this.props.step * 10);
 		} else if (e.key === 'PageUp') {
-			this.updateValue(this.props.value + 10);
+			this.updateValue(this.props.value + this.props.step * 10);
 		}
 	},
 
@@ -98,7 +126,7 @@ const DecInc = React.createClass({
 	},
 
 	dec() {
-		let value = this.props.value - 1;
+		let value = this.props.value - this.props.step;
 
 		if (value < this.props.min) {
 			value = this.props.min;
@@ -108,7 +136,7 @@ const DecInc = React.createClass({
 	},
 
 	inc() {
-		let value = this.props.value + 1;
+		let value = this.props.value + this.props.step;
 
 		if (value > this.props.max) {
 			value = this.props.max;
@@ -134,7 +162,7 @@ const DecInc = React.createClass({
 				<input
 					className="dec-inc__value"
 					type="text"
-					value={this.props.value}
+					value={this.toFixed(this.props.value)}
 					onChange={this.handleChange}
 					onKeyUp={this.handleKeyUp}
 					onWheel={this.handleWheel}
