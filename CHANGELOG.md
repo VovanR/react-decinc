@@ -1,3 +1,13 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/vovanr/react-decinc/compare/v0.7.0...v0.8.0) (2016-04-12)
+
+
+### Features
+
+* **lib:** Add step property ([5016bba](https://github.com/vovanr/react-decinc/commit/5016bba)), closes [#2](https://github.com/vovanr/react-decinc/issues/2)
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/vovanr/react-decinc/compare/v0.6.1...v0.7.0) (2016-04-10)
 
