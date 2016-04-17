@@ -1,0 +1,33 @@
+// Example theme
+.dec-inc
+	&_theme_example
+		& ^[0]__value
+			font-family: monospace
+
+		& ^[0]__control
+			&::after
+				opacity: 0.5
+
+			&_disabled
+				&::after
+					opacity: 0.25
+
+			&:hover
+				&::after
+					opacity: 1
+
+			&_disabled
+				&:hover
+					&::after
+						opacity: 0.25
+
+		& ^[0]__value
+			width: 3em
+
+		&^[0]_disabled
+			& ^[0]__value
+				border-color: transparent
+				background-color: transparent
+
+			& ^[0]__control
+				display: none

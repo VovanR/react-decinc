@@ -23,59 +23,59 @@ See: [example](example/app.jsx)
 
 ```js
 class App extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			count: 33,
-			gramm: 0.15
-		};
-		this.handleChangeCount = this.handleChangeCount.bind(this);
-		this.handleChangeGramm = this.handleChangeGramm.bind(this);
-	}
+    constructor() {
+        super();
+        this.state = {
+            count: 33,
+            gramm: 0.15
+        };
+        this.handleChangeCount = this.handleChangeCount.bind(this);
+        this.handleChangeGramm = this.handleChangeGramm.bind(this);
+    }
 
-	handleChangeCount(value) {
-		this.setState({count: value});
-	}
+    handleChangeCount(value) {
+        this.setState({count: value});
+    }
 
-	handleChangeGramm(value) {
-		this.setState({gramm: value});
-	}
+    handleChangeGramm(value) {
+        this.setState({gramm: value});
+    }
 
-	render() {
-		return (
-			<div
-				style={{
-					fontSize: '500%',
-					fontFamily: 'monospace'
-				}}
-				>
-				<div>
-					<label>
-						<small>{'Count: '}</small>
-						<DecInc
-							className="dec-inc_theme_example"
-							value={this.state.count}
-							max={33}
-							min={0}
-							onChange={this.handleChangeCount}
-							/>
-					</label>
-				</div>
-				<div>
-					<label>
-						<small>{'Gramm: '}</small>
-						<DecInc
-							className="dec-inc_theme_example"
-							value={this.state.gramm}
-							min={0}
-							step={0.001}
-							onChange={this.handleChangeGramm}
-							/>
-					</label>
-				</div>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div
+                style={{
+                    fontSize: '500%',
+                    fontFamily: 'monospace'
+                }}
+                >
+                <div>
+                    <label>
+                        <small>{'Count: '}</small>
+                        <DecInc
+                            className="dec-inc_theme_example"
+                            value={this.state.count}
+                            max={33}
+                            min={0}
+                            onChange={this.handleChangeCount}
+                            />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <small>{'Gramm: '}</small>
+                        <DecInc
+                            className="dec-inc_theme_example"
+                            value={this.state.gramm}
+                            min={0}
+                            step={0.001}
+                            onChange={this.handleChangeGramm}
+                            />
+                    </label>
+                </div>
+            </div>
+        );
+    }
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
@@ -85,15 +85,17 @@ ReactDOM.render(<App/>, document.getElementById('app'));
 
 ```js
 DecInc.propTypes = {
-	value: React.PropTypes.number,
-	min: React.PropTypes.number,
-	max: React.PropTypes.number,
-	step: React.PropTypes.number,
-	onChange: React.PropTypes.func,
-	className: React.PropTypes.string
+    value: React.PropTypes.number,
+    min: React.PropTypes.number,
+    max: React.PropTypes.number,
+    step: React.PropTypes.number,
+    disabled: React.PropTypes.bool,
+    className: React.PropTypes.string,
+    onChange: React.PropTypes.func
 };
 DecInc.defaultProps = {
-	step: 1
+    step: 1,
+    disabled: false
 };
 ```
 

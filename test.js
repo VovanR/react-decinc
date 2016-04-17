@@ -370,6 +370,40 @@ test('value PageUp with step', t => {
 	t.is(count, 0.41);
 });
 
+test('disabled', t => {
+	let isChanged = false;
+	const props = {
+		value: 3,
+		disabled: true,
+		onChange() {
+			isChanged = true;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const component = ReactTestUtils.findRenderedDOMComponentWithClass(result, 'dec-inc');
+	t.regex(component.className, /dec-inc_disabled/);
+
+	isChanged = false;
+	const dec = getDec(result);
+	ReactTestUtils.Simulate.click(dec);
+	t.false(isChanged, 'disable dec button');
+	t.regex(dec.className, /dec-inc__control_disabled/);
+
+	isChanged = false;
+	const inc = getInc(result);
+	ReactTestUtils.Simulate.click(inc);
+	t.false(isChanged, 'disable inc button');
+	t.regex(inc.className, /dec-inc__control_disabled/);
+
+	isChanged = false;
+	const value = getValue(result);
+	value.value = '9';
+	ReactTestUtils.Simulate.change(value);
+	t.false(isChanged, 'disable value input');
+	t.true(value.disabled, 'value input disabled attribute');
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();

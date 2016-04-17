@@ -6,13 +6,15 @@ const DecInc = React.createClass({
 		min: React.PropTypes.number,
 		max: React.PropTypes.number,
 		step: React.PropTypes.number,
-		onChange: React.PropTypes.func,
-		className: React.PropTypes.string
+		disabled: React.PropTypes.bool,
+		className: React.PropTypes.string,
+		onChange: React.PropTypes.func
 	},
 
 	getDefaultProps() {
 		return {
-			step: 1
+			step: 1,
+			disabled: false
 		};
 	},
 
@@ -33,6 +35,10 @@ const DecInc = React.createClass({
 	},
 
 	updateValue(value) {
+		if (this.props.disabled) {
+			return;
+		}
+
 		value = parseFloat(value);
 
 		if (isNaN(value)) {
@@ -72,6 +78,10 @@ const DecInc = React.createClass({
 	},
 
 	checkDecAvailable() {
+		if (this.props.disabled) {
+			return false;
+		}
+
 		if (!Number.isInteger(this.props.min)) {
 			return true;
 		}
@@ -80,6 +90,10 @@ const DecInc = React.createClass({
 	},
 
 	checkIncAvailable() {
+		if (this.props.disabled) {
+			return false;
+		}
+
 		if (!Number.isInteger(this.props.max)) {
 			return true;
 		}
@@ -147,6 +161,9 @@ const DecInc = React.createClass({
 
 	render() {
 		let className = 'dec-inc';
+		if (this.props.disabled) {
+			className += ` ${className}_disabled`;
+		}
 		if (this.props.className) {
 			className += ' ';
 			className += this.props.className;
@@ -157,12 +174,13 @@ const DecInc = React.createClass({
 				<DecIncControl
 					type="dec"
 					onClick={this.handleDec}
-					isDisabled={!this.checkDecAvailable()}
+					disabled={!this.checkDecAvailable()}
 					/>
 				<input
 					className="dec-inc__value"
 					type="text"
 					value={this.toFixed(this.props.value)}
+					disabled={this.props.disabled}
 					onChange={this.handleChange}
 					onKeyUp={this.handleKeyUp}
 					onWheel={this.handleWheel}
@@ -172,7 +190,7 @@ const DecInc = React.createClass({
 				<DecIncControl
 					type="inc"
 					onClick={this.handleInc}
-					isDisabled={!this.checkIncAvailable()}
+					disabled={!this.checkIncAvailable()}
 					/>
 			</div>
 		);
@@ -183,17 +201,17 @@ const DecIncControl = React.createClass({
 	propTypes: {
 		type: React.PropTypes.string.isRequired,
 		onClick: React.PropTypes.func.isRequired,
-		isDisabled: React.PropTypes.bool
+		disabled: React.PropTypes.bool
 	},
 
 	getDefaultProps() {
 		return {
-			isDisabled: false
+			disabled: false
 		};
 	},
 
 	handleClick() {
-		if (this.props.isDisabled) {
+		if (this.props.disabled) {
 			return;
 		}
 
@@ -203,7 +221,7 @@ const DecIncControl = React.createClass({
 	render() {
 		const controlClassName = 'dec-inc__control';
 		let className = `${controlClassName} ${controlClassName}_type_${this.props.type}`;
-		if (this.props.isDisabled) {
+		if (this.props.disabled) {
 			className += ` ${controlClassName}_disabled`;
 		}
 

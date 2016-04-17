@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import DecInc from '../index.jsx';
 
 require('../style.styl');
+require('./style.styl');
 
 class App extends React.Component {
 	constructor() {
@@ -53,6 +54,17 @@ class App extends React.Component {
 							value={this.state.gramm}
 							min={0}
 							step={0.001}
+							onChange={this.handleChangeGramm}
+							/>
+					</label>
+				</div>
+				<div>
+					<label>
+						<small>{'Round: '}</small>
+						<DecInc
+							className="dec-inc_theme_example"
+							value={(Math.round(this.state.gramm * this.state.count))}
+							disabled
 							onChange={this.handleChangeGramm}
 							/>
 					</label>

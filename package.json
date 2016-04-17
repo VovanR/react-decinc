@@ -18,10 +18,11 @@
     "release-major": "mversion major"
   },
   "files": [
-    "index.jsx"
+    "index.jsx",
+    "style.styl"
   ],
   "main": "index.jsx",
-  "style": "style.css",
+  "style": "style.styl",
   "keywords": [
     "react",
     "component",
