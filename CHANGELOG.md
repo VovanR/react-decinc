@@ -1,3 +1,13 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/vovanr/react-decinc/compare/v0.8.1...v0.9.0) (2016-04-17)
+
+
+### Features
+
+* **lib:** Add disabled state ([0635a1b](https://github.com/vovanr/react-decinc/commit/0635a1b)), closes [#10](https://github.com/vovanr/react-decinc/issues/10)
+
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](https://github.com/vovanr/react-decinc/compare/v0.8.0...v0.8.1) (2016-04-12)
 
