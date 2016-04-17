@@ -256,16 +256,29 @@ test('value Wheel down', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.wheel(value, {deltaY: 5});
+	let isDefaultPrevented = false;
+	const eventProps = {
+		deltaY: 5,
+		preventDefault() {
+			isDefaultPrevented = true;
+		}
+	};
+
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 5, 'without focus');
+	t.false(isDefaultPrevented, 'without focus');
+	isDefaultPrevented = false;
 
 	ReactTestUtils.Simulate.focus(value);
-	ReactTestUtils.Simulate.wheel(value, {deltaY: 5});
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 4);
+	t.true(isDefaultPrevented, 'prevent page scroll');
+	isDefaultPrevented = false;
 
 	ReactTestUtils.Simulate.blur(value);
-	ReactTestUtils.Simulate.wheel(value, {deltaY: 5});
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 4, 'without focus');
+	t.false(isDefaultPrevented, 'without focus');
 });
 
 test('value Wheel up', t => {
@@ -279,16 +292,29 @@ test('value Wheel up', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.wheel(value, {deltaY: -5});
+	let isDefaultPrevented = false;
+	const eventProps = {
+		deltaY: -5,
+		preventDefault() {
+			isDefaultPrevented = true;
+		}
+	};
+
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 5, 'without focus');
+	t.false(isDefaultPrevented, 'without focus');
+	isDefaultPrevented = false;
 
 	ReactTestUtils.Simulate.focus(value);
-	ReactTestUtils.Simulate.wheel(value, {deltaY: -5});
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 6);
+	t.true(isDefaultPrevented, 'prevent page scroll');
+	isDefaultPrevented = false;
 
 	ReactTestUtils.Simulate.blur(value);
-	ReactTestUtils.Simulate.wheel(value, {deltaY: -5});
+	ReactTestUtils.Simulate.wheel(value, eventProps);
 	t.is(count, 6, 'without focus');
+	t.false(isDefaultPrevented, 'without focus');
 });
 
 test('dec with step', t => {
