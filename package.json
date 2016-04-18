@@ -15,7 +15,9 @@
     "start": "webpack --watch",
     "release-patch": "mversion patch",
     "release-minor": "mversion minor",
-    "release-major": "mversion major"
+    "release-major": "mversion major",
+    "build": "webpack",
+    "deploy": "gh-pages-deploy"
   },
   "files": [
     "index.jsx",
@@ -82,5 +84,12 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "gh-pages-deploy": {
+    "staticpath": "example",
+    "prep": [
+      "build"
+    ],
+    "noprompt": false
   }
 }
