@@ -29,7 +29,9 @@
     "react-component",
     "decrement",
     "increment",
-    "input"
+    "input",
+    "number",
+    "spinner"
   ],
   "dependencies": {},
   "devDependencies": {
