@@ -1,7 +1,5 @@
-/* global document */
+/* global document, React, ReactDOM */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 import DecInc from '../index.jsx';
 
 require('../style.styl');
