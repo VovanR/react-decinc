@@ -65,7 +65,6 @@ class App extends React.Component {
 							className="dec-inc_theme_example"
 							value={(Math.round(this.state.gramm * this.state.count))}
 							disabled
-							onChange={this.handleChangeGramm}
 							/>
 					</label>
 				</div>

@@ -35,7 +35,7 @@ const DecInc = React.createClass({
 	},
 
 	updateValue(value) {
-		if (this.props.disabled) {
+		if (this.props.disabled || !this.props.onChange) {
 			return;
 		}
 

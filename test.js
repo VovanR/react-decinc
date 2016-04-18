@@ -526,6 +526,21 @@ test('fix trailing mouseOut canceling', t => {
 	t.is(count, -2);
 });
 
+test('onChange param is not required', t => {
+	let count = 0;
+	const props = {
+		value: count
+	};
+	const result = renderIntoDocument(props);
+
+	const dec = getDec(result);
+
+	t.notThrows(() => {
+		ReactTestUtils.Simulate.mouseDown(dec);
+		ReactTestUtils.Simulate.mouseUp(dec);
+	});
+});
+
 // Shallow renderer
 function createComponent(component, props = {}) {
 	const shallowRenderer = ReactTestUtils.createRenderer();
