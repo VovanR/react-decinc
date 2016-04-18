@@ -10,6 +10,8 @@
 
 > React decrement/increment input component
 
+Demo: [vovanr.github.io/react-decinc][demo]
+
 ![](preview.png)
 
 ## Install
