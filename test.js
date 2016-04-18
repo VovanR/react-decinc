@@ -84,7 +84,8 @@ test('dec Click', t => {
 	const result = renderIntoDocument(props);
 	const dec = getDec(result);
 
-	ReactTestUtils.Simulate.click(dec);
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
 	t.is(count, 4);
 });
 
@@ -99,7 +100,8 @@ test('inc Click', t => {
 	const result = renderIntoDocument(props);
 	const inc = getInc(result);
 
-	ReactTestUtils.Simulate.click(inc);
+	ReactTestUtils.Simulate.mouseDown(inc);
+	ReactTestUtils.Simulate.mouseUp(inc);
 	t.is(count, 6);
 });
 
@@ -114,7 +116,7 @@ test('value ArrowDown', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'ArrowDown'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'ArrowDown'});
 	t.is(count, 4);
 });
 
@@ -129,7 +131,7 @@ test('value ArrowUp', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'ArrowUp'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'ArrowUp'});
 	t.is(count, 6);
 });
 
@@ -144,7 +146,7 @@ test('value PageDown', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'PageDown'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'PageDown'});
 	t.is(count, 45);
 });
 
@@ -159,7 +161,7 @@ test('value PageUp', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'PageUp'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'PageUp'});
 	t.is(count, 65);
 });
 
@@ -175,7 +177,7 @@ test('value End', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'End'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'End'});
 	t.is(count, -3);
 });
 
@@ -191,7 +193,7 @@ test('value Home', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'Home'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'Home'});
 	t.is(count, 33);
 });
 
@@ -206,7 +208,7 @@ test('value End without min', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'End'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'End'});
 	t.is(count, 5);
 });
 
@@ -221,7 +223,7 @@ test('value Home without max', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'Home'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'Home'});
 	t.is(count, 5);
 });
 
@@ -329,7 +331,8 @@ test('dec with step', t => {
 	const result = renderIntoDocument(props);
 	const dec = getDec(result);
 
-	ReactTestUtils.Simulate.click(dec);
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
 	t.is(count, 0.2);
 });
 
@@ -345,7 +348,8 @@ test('inc with step', t => {
 	const result = renderIntoDocument(props);
 	const inc = getInc(result);
 
-	ReactTestUtils.Simulate.click(inc);
+	ReactTestUtils.Simulate.mouseDown(inc);
+	ReactTestUtils.Simulate.mouseUp(inc);
 	t.is(count, 0.3);
 });
 
@@ -376,7 +380,7 @@ test('value PageDown with step', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'PageDown'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'PageDown'});
 	t.is(count, 0.21);
 });
 
@@ -392,7 +396,7 @@ test('value PageUp with step', t => {
 	const result = renderIntoDocument(props);
 	const value = getValue(result);
 
-	ReactTestUtils.Simulate.keyUp(value, {key: 'PageUp'});
+	ReactTestUtils.Simulate.keyDown(value, {key: 'PageUp'});
 	t.is(count, 0.41);
 });
 
@@ -412,13 +416,15 @@ test('disabled', t => {
 
 	isChanged = false;
 	const dec = getDec(result);
-	ReactTestUtils.Simulate.click(dec);
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
 	t.false(isChanged, 'disable dec button');
 	t.regex(dec.className, /dec-inc__control_disabled/);
 
 	isChanged = false;
 	const inc = getInc(result);
-	ReactTestUtils.Simulate.click(inc);
+	ReactTestUtils.Simulate.mouseDown(inc);
+	ReactTestUtils.Simulate.mouseUp(inc);
 	t.false(isChanged, 'disable inc button');
 	t.regex(inc.className, /dec-inc__control_disabled/);
 
@@ -428,6 +434,96 @@ test('disabled', t => {
 	ReactTestUtils.Simulate.change(value);
 	t.false(isChanged, 'disable value input');
 	t.true(value.disabled, 'value input disabled attribute');
+});
+
+// Same for inc
+test.cb('repeat dec mouseDown mouseUp', t => {
+	let count = 0;
+	const props = {
+		value: count,
+		onChange() {
+			count -= 1;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	count = 0;
+	const dec = getDec(result);
+	ReactTestUtils.Simulate.mouseUp(dec);
+	t.is(count, 0, 'without mouseDown');
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
+	t.is(count, -1, 'click');
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	setTimeout(() => {
+		ReactTestUtils.Simulate.mouseUp(dec);
+		let lastCount = count;
+		t.true(count < -1);
+
+		setTimeout(() => {
+			t.is(count, lastCount, 'mouseUp stops handler');
+			t.end();
+		}, 100);
+	}, 630);
+});
+
+// Same for inc
+test.cb('repeat dec mouseDown mouseOut', t => {
+	let count = 0;
+	const props = {
+		value: count,
+		onChange() {
+			count -= 1;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	count = 0;
+	const dec = getDec(result);
+	ReactTestUtils.Simulate.mouseOut(dec);
+	t.is(count, 0, 'without mouseDown');
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseOut(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
+	t.is(count, 0, 'cancel');
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	setTimeout(() => {
+		ReactTestUtils.Simulate.mouseOut(dec);
+		let lastCount = count;
+		t.true(count < -1);
+
+		setTimeout(() => {
+			t.is(count, lastCount, 'mouseOut stops handler');
+			t.end();
+		}, 100);
+	}, 630);
+});
+
+test('fix trailing mouseOut canceling', t => {
+	let count = 0;
+	const props = {
+		value: count,
+		onChange() {
+			count -= 1;
+		}
+	};
+	const result = renderIntoDocument(props);
+
+	const dec = getDec(result);
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
+	ReactTestUtils.Simulate.mouseOut(dec);
+	t.is(count, -1);
+
+	ReactTestUtils.Simulate.mouseDown(dec);
+	ReactTestUtils.Simulate.mouseUp(dec);
+	ReactTestUtils.Simulate.mouseOut(dec);
+	t.is(count, -2);
 });
 
 // Shallow renderer

@@ -101,7 +101,7 @@ const DecInc = React.createClass({
 		return this.props.value < this.props.max;
 	},
 
-	handleKeyUp(e) {
+	handleKeyDown(e) {
 		if (e.key === 'ArrowDown') {
 			this.dec();
 		} else if (e.key === 'ArrowUp') {
@@ -182,7 +182,7 @@ const DecInc = React.createClass({
 					value={this.toFixed(this.props.value)}
 					disabled={this.props.disabled}
 					onChange={this.handleChange}
-					onKeyUp={this.handleKeyUp}
+					onKeyDown={this.handleKeyDown}
 					onWheel={this.handleWheel}
 					onFocus={this.handleFocus}
 					onBlur={this.handleBlur}
@@ -210,12 +210,72 @@ const DecIncControl = React.createClass({
 		};
 	},
 
+	waitTimer: null,
+	waitInterval: 500,
+	repeatTimer: null,
+	repeatInterval: 40,
+
+	isPressed: false,
+	// Flag for prevent trailing mouseUp handler when repeatTimer fired > 0 times
+	isProcessed: false,
+	// Flag for canceling from mouseDown to mouseOut interval < waitInterval
+	isCanceled: false,
+
 	handleClick() {
+		if (this.props.disabled) {
+			this.stopTimers();
+			return;
+		}
+
+		this.isProcessed = true;
+		this.props.onClick();
+	},
+
+	handleMouseDown() {
 		if (this.props.disabled) {
 			return;
 		}
 
-		this.props.onClick();
+		this.isPressed = true;
+		this.waitTimer = setTimeout(this.holdPress, this.waitInterval);
+	},
+
+	handleMouseUp() {
+		if (!this.isPressed) {
+			return;
+		}
+
+		this.releasePress();
+	},
+
+	handleMouseOut() {
+		if (!this.isPressed) {
+			return;
+		}
+
+		this.isCanceled = true;
+		this.releasePress();
+	},
+
+	holdPress() {
+		this.stopTimers();
+		this.repeatTimer = setInterval(this.handleClick, this.repeatInterval);
+	},
+
+	releasePress() {
+		this.stopTimers();
+		if (!this.isProcessed && !this.isCanceled) {
+			this.handleClick();
+		}
+
+		this.isPressed = false;
+		this.isProcessed = false;
+		this.isCanceled = false;
+	},
+
+	stopTimers() {
+		clearTimeout(this.waitTimer);
+		clearInterval(this.repeatTimer);
 	},
 
 	render() {
@@ -228,7 +288,9 @@ const DecIncControl = React.createClass({
 		return (
 			<span
 				className={className}
-				onClick={this.handleClick}
+				onMouseDown={this.handleMouseDown}
+				onMouseUp={this.handleMouseUp}
+				onMouseOut={this.handleMouseOut}
 				/>
 		);
 	}
