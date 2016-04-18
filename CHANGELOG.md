@@ -1,3 +1,13 @@
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/vovanr/react-decinc/compare/v0.9.0...v0.10.0) (2016-04-18)
+
+
+### Features
+
+* **lib:** Add hold key and mouse button support ([d54c64f](https://github.com/vovanr/react-decinc/commit/d54c64f)), closes [#13](https://github.com/vovanr/react-decinc/issues/13)
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/vovanr/react-decinc/compare/v0.8.1...v0.9.0) (2016-04-17)
 
