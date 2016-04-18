@@ -105,6 +105,8 @@ DecInc.defaultProps = {
 
 MIT © [Vladimir Rodkin](https://github.com/VovanR)
 
+[demo]: https://vovanr.github.io/react-decinc
+
 [commitizen-url]: http://commitizen.github.io/cz-cli/
 [commitizen-image]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 
