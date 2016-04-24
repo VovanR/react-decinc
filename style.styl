@@ -1,42 +1,33 @@
+// Example theme
 .dec-inc
-	controlWidth = 1em
-	display: inline-block
-	position: relative
-	padding: 0 controlWidth
-	user-select: none
+	&_theme_example
+		& ^[0]__value
+			font-family: monospace
 
-	&__control
-		display: block
-		position: absolute
-		top: 0
-		width: controlWidth
-		height: 100%
-		text-align: center
-		cursor: pointer
+		& ^[0]__control
+			&::after
+				opacity: 0.5
 
-		&::after
-			display: block
-			position: absolute
-			top: 50%
-			left: 50%
-			transform: translate(-50%, -50%)
+			&_disabled
+				&::after
+					opacity: 0.25
 
-		&_disabled
-			cursor: default
+			&:hover
+				&::after
+					opacity: 1
 
-	&__control_type_dec
-		left: 0
+			&_disabled
+				&:hover
+					&::after
+						opacity: 0.25
 
-		&::after
-			content: '￬'
+		& ^[0]__value
+			width: 3em
 
-	&__control_type_inc
-		right: 0
+		&^[0]_disabled
+			& ^[0]__value
+				border-color: transparent
+				background-color: transparent
 
-		&::after
-			content: '￪'
-
-	&__value
-		width: 1.2em
-		font-size: inherit
-		text-align: right
+			& ^[0]__control
+				display: none
