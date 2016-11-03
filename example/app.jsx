@@ -1,4 +1,6 @@
-/* global document, React, ReactDOM */
+/* global document React ReactDOM */
+/* eslint react/forbid-component-props: 0 */
+/* eslint import/no-unassigned-import: 0 */
 
 import DecInc from '../index.jsx';
 

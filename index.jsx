@@ -1,3 +1,5 @@
+/* eslint react/forbid-component-props: 0 */
+
 import React from 'react';
 
 const DecInc = React.createClass({
@@ -111,9 +113,9 @@ const DecInc = React.createClass({
 		} else if (e.key === 'Home' && this.props.max !== undefined) {
 			this.updateValue(this.props.max);
 		} else if (e.key === 'PageDown') {
-			this.updateValue(this.props.value - this.props.step * 10);
+			this.updateValue(this.props.value - (this.props.step * 10));
 		} else if (e.key === 'PageUp') {
-			this.updateValue(this.props.value + this.props.step * 10);
+			this.updateValue(this.props.value + (this.props.step * 10));
 		}
 	},
 
